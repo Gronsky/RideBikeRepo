@@ -1,0 +1,60 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.image {
+    overflow: hidden;
+    /*width: 380px;
+    height: 250px;*/
+}
+
+.image img {
+    -moz-transition: all 1s ease-out;
+    -o-transition: all 1s ease-out;
+    -webkit-transition: all 1s ease-out;
+}
+
+.image img:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+
+.ui-dialog {
+    border-color: #333333 !important;
+}
+
+.ui-dialog-titlebar {
+    background-color: #3d3d3e !important;
+}
+
+.ui-dialog .ui-dialog-content {
+    padding: 0em !important;
+}
+
+
+.ui-dialog .ui-dialog-content {
+    overflow: hidden !important;
+}

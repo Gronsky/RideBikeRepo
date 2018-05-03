@@ -1,0 +1,13 @@
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\RideBike.Models.dll.config
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\RideBike.Models.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\RideBike.Models.pdb
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\EntityFramework.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\EntityFramework.xml
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\obj\Debug\RideBike.Models.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBike.Models\obj\Debug\RideBike.Models.pdb

@@ -1,0 +1,9 @@
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProject.Database\bin\Debug\RideBikeProject.Database.dacpac
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProject.Database\bin\Debug\RideBikeProject.Database.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProject.Database\bin\Debug\RideBikeProject.Database.pdb
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProject.Database\obj\Debug\RideBikeProject.Database.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProject.Database\obj\Debug\RideBikeProject.Database.pdb
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProject.Database\obj\Debug\Model.xml
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProject.Database\obj\Debug\refactor.xml
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProject.Database\obj\Debug\postdeploy.sql
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProject.Database\obj\Debug\predeploy.sql

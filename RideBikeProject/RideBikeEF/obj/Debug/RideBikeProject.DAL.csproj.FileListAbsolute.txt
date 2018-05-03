@@ -1,0 +1,11 @@
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\RideBikeEF.exe.config
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\RideBikeEF.exe
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\RideBikeEF.pdb
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\EntityFramework.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\Ninject.dll
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\EntityFramework.xml
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\Ninject.xml
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\obj\Debug\RideBikeEF.exe
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\obj\Debug\RideBikeEF.pdb

@@ -1,0 +1,43 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[Bikes] (Table)
+       [dbo].[BikeSubtypes] (Table)
+       [dbo].[BikeTypes] (Table)
+       [dbo].[Events] (Table)
+       [dbo].[EventTypes] (Table)
+       [dbo].[EventUsers] (Table)
+       [dbo].[Images] (Table)
+       [dbo].[Producers] (Table)
+       [dbo].[Profiles] (Table)
+       [dbo].[Roles] (Table)
+       [dbo].[Teams] (Table)
+       [dbo].[Users] (Table)
+       Default Constraint: unnamed constraint on [dbo].[Users] (Default Constraint)
+       [dbo].[FK_Bikes_Users] (Foreign Key)
+       [dbo].[FK_Bikes_BikeSubtypes] (Foreign Key)
+       [dbo].[FK_Bikes_Producers] (Foreign Key)
+       [dbo].[FK_BikeSubtypes_BikeTypes] (Foreign Key)
+       [dbo].[FK_Events_Teams] (Foreign Key)
+       [dbo].[FK_Events_Images] (Foreign Key)
+       [dbo].[FK_Events_EventTypes] (Foreign Key)
+       [dbo].[FK_EventUsers_Events] (Foreign Key)
+       [dbo].[FK_EventUsers_Users] (Foreign Key)
+       [dbo].[FK_EventUsers_Bikes] (Foreign Key)
+       [dbo].[FK_Profiles_Users] (Foreign Key)
+       [dbo].[FK_Teams_Images] (Foreign Key)
+       [dbo].[FK_Teams_Users] (Foreign Key)
+       [dbo].[FK_Users_Images] (Foreign Key)
+       [dbo].[FK_Users_Roles] (Foreign Key)
+       [dbo].[FK_Users_Teams] (Foreign Key)
+
+** Supporting actions

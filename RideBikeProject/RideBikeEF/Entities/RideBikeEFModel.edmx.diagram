@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8336fc6c3e924dce993d4bba77db7cfa" Name="Diagram1">
+        <EntityTypeShape EntityType="RideBikeModel.Bike" Width="1.5" PointX="13.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.BikeSubtype" Width="1.5" PointX="11.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.BikeType" Width="1.5" PointX="9" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.Event" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.EventType" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.EventUser" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.Image" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.Producer" Width="1.5" PointX="11.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.Role" Width="1.5" PointX="9" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.Team" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RideBikeModel.User" Width="1.5" PointX="11.25" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="RideBikeModel.FK_Bikes_BikeSubtypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Bikes_Producers" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Bikes_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_EventUsers_Bikes" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_BikeSubtypes_BikeTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Events_EventTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Events_Images" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Events_Teams" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_EventUsers_Events" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_EventUsers_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Teams_Images" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Users_Images" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Users_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Teams_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RideBikeModel.FK_Users_Teams" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

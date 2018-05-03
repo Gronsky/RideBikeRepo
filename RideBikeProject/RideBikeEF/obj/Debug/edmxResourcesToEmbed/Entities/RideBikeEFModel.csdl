@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RideBikeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bike">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OwnerId" Type="Int64" Nullable="false" />
+    <Property Name="TypeId" Type="Int64" Nullable="false" />
+    <Property Name="ProducerId" Type="Int64" Nullable="false" />
+    <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BikeSubtype" Relationship="Self.FK_Bikes_BikeSubtypes" FromRole="Bikes" ToRole="BikeSubtypes" />
+    <NavigationProperty Name="Producer" Relationship="Self.FK_Bikes_Producers" FromRole="Bikes" ToRole="Producers" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Bikes_Users" FromRole="Bikes" ToRole="Users" />
+    <NavigationProperty Name="EventUsers" Relationship="Self.FK_EventUsers_Bikes" FromRole="Bikes" ToRole="EventUsers" />
+  </EntityType>
+  <EntityType Name="BikeSubtype">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subtype" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TypeId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Bikes" Relationship="Self.FK_Bikes_BikeSubtypes" FromRole="BikeSubtypes" ToRole="Bikes" />
+    <NavigationProperty Name="BikeType" Relationship="Self.FK_BikeSubtypes_BikeTypes" FromRole="BikeSubtypes" ToRole="BikeTypes" />
+  </EntityType>
+  <EntityType Name="BikeType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="BikeSubtypes" Relationship="Self.FK_BikeSubtypes_BikeTypes" FromRole="BikeTypes" ToRole="BikeSubtypes" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+    <Property Name="ImageId" Type="Int64" />
+    <Property Name="TypeId" Type="Int64" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="EventType" Relationship="Self.FK_Events_EventTypes" FromRole="Events" ToRole="EventTypes" />
+    <NavigationProperty Name="Image" Relationship="Self.FK_Events_Images" FromRole="Events" ToRole="Images" />
+    <NavigationProperty Name="Team" Relationship="Self.FK_Events_Teams" FromRole="Events" ToRole="Teams" />
+    <NavigationProperty Name="EventUsers" Relationship="Self.FK_EventUsers_Events" FromRole="Events" ToRole="EventUsers" />
+  </EntityType>
+  <EntityType Name="EventType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LongType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Events" Relationship="Self.FK_Events_EventTypes" FromRole="EventTypes" ToRole="Events" />
+  </EntityType>
+  <EntityType Name="EventUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventId" Type="Int64" Nullable="false" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="BikeId" Type="Int64" />
+    <NavigationProperty Name="Bike" Relationship="Self.FK_EventUsers_Bikes" FromRole="EventUsers" ToRole="Bikes" />
+    <NavigationProperty Name="Event" Relationship="Self.FK_EventUsers_Events" FromRole="EventUsers" ToRole="Events" />
+    <NavigationProperty Name="User" Relationship="Self.FK_EventUsers_Users" FromRole="EventUsers" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Source" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Events" Relationship="Self.FK_Events_Images" FromRole="Images" ToRole="Events" />
+    <NavigationProperty Name="Teams" Relationship="Self.FK_Teams_Images" FromRole="Images" ToRole="Teams" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Images" FromRole="Images" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Producer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Bikes" Relationship="Self.FK_Bikes_Producers" FromRole="Producers" ToRole="Bikes" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ImageId" Type="Int64" />
+    <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ChiefId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Events" Relationship="Self.FK_Events_Teams" FromRole="Teams" ToRole="Events" />
+    <NavigationProperty Name="Image" Relationship="Self.FK_Teams_Images" FromRole="Teams" ToRole="Images" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Teams_Users" FromRole="Teams" ToRole="Users" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Teams" FromRole="Teams" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ImageId" Type="Int64" />
+    <Property Name="TeamId" Type="Int64" />
+    <Property Name="RoleId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Bikes" Relationship="Self.FK_Bikes_Users" FromRole="Users" ToRole="Bikes" />
+    <NavigationProperty Name="EventUsers" Relationship="Self.FK_EventUsers_Users" FromRole="Users" ToRole="EventUsers" />
+    <NavigationProperty Name="Image" Relationship="Self.FK_Users_Images" FromRole="Users" ToRole="Images" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+    <NavigationProperty Name="Teams" Relationship="Self.FK_Teams_Users" FromRole="Users" ToRole="Teams" />
+    <NavigationProperty Name="Team" Relationship="Self.FK_Users_Teams" FromRole="Users" ToRole="Teams" />
+  </EntityType>
+  <Association Name="FK_Bikes_BikeSubtypes">
+    <End Role="BikeSubtypes" Type="Self.BikeSubtype" Multiplicity="1" />
+    <End Role="Bikes" Type="Self.Bike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BikeSubtypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bikes">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bikes_Producers">
+    <End Role="Producers" Type="Self.Producer" Multiplicity="1" />
+    <End Role="Bikes" Type="Self.Bike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bikes">
+        <PropertyRef Name="ProducerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bikes_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Bikes" Type="Self.Bike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bikes">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventUsers_Bikes">
+    <End Role="Bikes" Type="Self.Bike" Multiplicity="0..1" />
+    <End Role="EventUsers" Type="Self.EventUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bikes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EventUsers">
+        <PropertyRef Name="BikeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BikeSubtypes_BikeTypes">
+    <End Role="BikeTypes" Type="Self.BikeType" Multiplicity="1" />
+    <End Role="BikeSubtypes" Type="Self.BikeSubtype" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BikeTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BikeSubtypes">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Events_EventTypes">
+    <End Role="EventTypes" Type="Self.EventType" Multiplicity="1" />
+    <End Role="Events" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EventTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Events_Images">
+    <End Role="Images" Type="Self.Image" Multiplicity="0..1" />
+    <End Role="Events" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Images">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Events_Teams">
+    <End Role="Teams" Type="Self.Team" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Events" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventUsers_Events">
+    <End Role="Events" Type="Self.Event" Multiplicity="1" />
+    <End Role="EventUsers" Type="Self.EventUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Events">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EventUsers">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventUsers_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="EventUsers" Type="Self.EventUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EventUsers">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teams_Images">
+    <End Role="Images" Type="Self.Image" Multiplicity="0..1" />
+    <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Images">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Teams">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Images">
+    <End Role="Images" Type="Self.Image" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Images">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles">
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teams_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Teams">
+        <PropertyRef Name="ChiefId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Teams">
+    <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RideBikeContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bikes" EntityType="Self.Bike" />
+    <EntitySet Name="BikeSubtypes" EntityType="Self.BikeSubtype" />
+    <EntitySet Name="BikeTypes" EntityType="Self.BikeType" />
+    <EntitySet Name="Events" EntityType="Self.Event" />
+    <EntitySet Name="EventTypes" EntityType="Self.EventType" />
+    <EntitySet Name="EventUsers" EntityType="Self.EventUser" />
+    <EntitySet Name="Images" EntityType="Self.Image" />
+    <EntitySet Name="Producers" EntityType="Self.Producer" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Teams" EntityType="Self.Team" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Bikes_BikeSubtypes" Association="Self.FK_Bikes_BikeSubtypes">
+      <End Role="BikeSubtypes" EntitySet="BikeSubtypes" />
+      <End Role="Bikes" EntitySet="Bikes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bikes_Producers" Association="Self.FK_Bikes_Producers">
+      <End Role="Producers" EntitySet="Producers" />
+      <End Role="Bikes" EntitySet="Bikes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bikes_Users" Association="Self.FK_Bikes_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Bikes" EntitySet="Bikes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EventUsers_Bikes" Association="Self.FK_EventUsers_Bikes">
+      <End Role="Bikes" EntitySet="Bikes" />
+      <End Role="EventUsers" EntitySet="EventUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BikeSubtypes_BikeTypes" Association="Self.FK_BikeSubtypes_BikeTypes">
+      <End Role="BikeTypes" EntitySet="BikeTypes" />
+      <End Role="BikeSubtypes" EntitySet="BikeSubtypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Events_EventTypes" Association="Self.FK_Events_EventTypes">
+      <End Role="EventTypes" EntitySet="EventTypes" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Events_Images" Association="Self.FK_Events_Images">
+      <End Role="Images" EntitySet="Images" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Events_Teams" Association="Self.FK_Events_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EventUsers_Events" Association="Self.FK_EventUsers_Events">
+      <End Role="Events" EntitySet="Events" />
+      <End Role="EventUsers" EntitySet="EventUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EventUsers_Users" Association="Self.FK_EventUsers_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="EventUsers" EntitySet="EventUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teams_Images" Association="Self.FK_Teams_Images">
+      <End Role="Images" EntitySet="Images" />
+      <End Role="Teams" EntitySet="Teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Images" Association="Self.FK_Users_Images">
+      <End Role="Images" EntitySet="Images" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teams_Users" Association="Self.FK_Teams_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Teams" EntitySet="Teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Teams" Association="Self.FK_Users_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,5 @@
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProjectDAL\bin\Debug\RideBikeProjectDAL.exe.config
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProjectDAL\bin\Debug\RideBikeProjectDAL.exe
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProjectDAL\bin\Debug\RideBikeProjectDAL.pdb
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProjectDAL\obj\Debug\RideBikeProjectDAL.exe
+C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeProjectDAL\obj\Debug\RideBikeProjectDAL.pdb
