@@ -5,6 +5,8 @@ using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
 using RideBikeWEB.Infrastructure;
+using RideBikeWeb.AutoMapperProfiles;
+using AutoMapper;
 
 namespace RideBikeWeb
 {
@@ -22,6 +24,12 @@ namespace RideBikeWeb
             NinjectModule serviceModule = new RideBikeProjectBLL.Infrastructure.ServiceModule("DefaultConnection");
             var kernel = new StandardKernel(orderModule, serviceModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+
+
+            Mapper.Initialize(cfg => {
+                cfg.AddProfile<MapperProfile>();
+            });
+
         }
     }
 }

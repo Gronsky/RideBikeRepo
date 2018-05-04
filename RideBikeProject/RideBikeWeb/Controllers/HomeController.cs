@@ -14,13 +14,8 @@ namespace RideBikeWeb.Controllers
 {
     public class HomeController : Controller
     {
-        ITeamService _teamService;
-        IEventService _evntService;
-
-        public HomeController(ITeamService teamServ, IEventService evntServ)
+        public HomeController()
         {
-            _teamService = teamServ;
-            _evntService = evntServ;
         }
         public ActionResult Index()
         {

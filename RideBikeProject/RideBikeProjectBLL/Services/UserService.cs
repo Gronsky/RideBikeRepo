@@ -18,22 +18,24 @@ namespace RideBikeProjectBLL.Services
 {
     public class UserService : IUserService
     {
+        IRepository<Image> _imgRepo;
         IRepository<User> _userRepo;
         IRepository<Role> _roleRepo;
         IRepository<Event> _evntRepo;
+        IRepository<Team> _teamRepo;
 
-        public UserService(IRepository<User> userRepo, IRepository<Role> roleRepo, IRepository<Event> evntRepo)
+        public UserService(IRepository<User> userRepo, IRepository<Role> roleRepo, IRepository<Event> evntRepo, IRepository<Image> imgRepo, IRepository<Team> teamRepo)
         {
             _userRepo = userRepo;
             _roleRepo = roleRepo;
             _evntRepo = evntRepo;
+            _imgRepo = imgRepo;
+            _teamRepo = teamRepo;
         }
 
         public void CreateUser(UserDTO userDTO)
         {
             Role role = _roleRepo.Find(userDTO.RoleId);
-
-            // Validation
             if (role == null)
                 throw new ValidationException("Role doesn't exist", "");
 
@@ -55,8 +57,7 @@ namespace RideBikeProjectBLL.Services
 
         public UserDTO Login(UserDTO userDto)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            var dbUser = mapper.Map<User, UserDTO>((_userRepo.Get(x => x.Email.Equals(userDto.Email))).FirstOrDefault());
+            var dbUser = Mapper.Map<User, UserDTO>((_userRepo.Get(x => x.Email.Equals(userDto.Email))).FirstOrDefault());
 
             if (dbUser.Password.Equals(userDto.Password))
             {
@@ -71,14 +72,29 @@ namespace RideBikeProjectBLL.Services
             if (user == null)
                 throw new ValidationException("User doesn't find", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<User, UserDTO>(user);
+            var userDto =  Mapper.Map<User, UserDTO>(user);
+
+            //get image src
+            if (user.ImageId != null)
+            {
+                long id = user.ImageId.Value;
+                Image img = _imgRepo.Find(id);
+                userDto.Image = img.Source;
+            }
+
+            //get team name
+            if (user.TeamId != null)
+            {
+                long id = user.TeamId.Value;
+                Team team = _teamRepo.Find(id);
+                userDto.Team = team.Name;
+            }
+            return userDto;
         }
 
         public List<UserDTO> GetUsers()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<List<User>, List<UserDTO>>(_userRepo.Get());
+            return Mapper.Map<List<User>, List<UserDTO>>(_userRepo.Get());
         }
 
         public void UpdateUser(UserDTO userDTO)
@@ -94,8 +110,18 @@ namespace RideBikeProjectBLL.Services
 
         public List<EventDTO> GetUserEvents(long userId)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Event, EventDTO>()).CreateMapper();
-            return mapper.Map<List<Event>, List<EventDTO>>(_evntRepo.Get());
+            return Mapper.Map<List<Event>, List<EventDTO>>(_evntRepo.Get());
+        }
+
+        public void ChangeImage(string image, long userId)
+        {
+            Image img = new Image { Source = image };
+            _imgRepo.Create(img);
+            Image getImg = _imgRepo.Get(x => x.Source == image).FirstOrDefault();
+
+            User user = _userRepo.Find(userId);
+            user.ImageId = getImg.Id;
+            _userRepo.Update(user);
         }
     }
 }

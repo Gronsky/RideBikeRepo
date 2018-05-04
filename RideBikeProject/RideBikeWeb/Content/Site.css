@@ -1,22 +1,19 @@
 ﻿body {
+    background-image: url("Img/background/body_1.jpg");
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background-color: white !important;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
 .dl-horizontal dt {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
@@ -25,8 +22,6 @@ textarea {
 
 .image {
     overflow: hidden;
-    /*width: 380px;
-    height: 250px;*/
 }
 
 .image img {
@@ -41,7 +36,6 @@ textarea {
     -o-transform: scale(1.1);
 }
 
-
 .ui-dialog {
     border-color: #333333 !important;
 }
@@ -51,10 +45,15 @@ textarea {
 }
 
 .ui-dialog .ui-dialog-content {
-    padding: 0em !important;
+    overflow: hidden !important;
 }
 
+#logo {
+    height: 38px;
+    width: auto;
+}
 
-.ui-dialog .ui-dialog-content {
-    overflow: hidden !important;
+.navbar-inverse .navbar-nav > li > a {
+    font-size: 18px;
+    padding-top: 25px !important;
 }

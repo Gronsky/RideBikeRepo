@@ -55,20 +55,17 @@ namespace RideBikeProjectBLL.Services
 
         public TeamDTO GetTeam(long id)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Team, TeamDTO>()).CreateMapper();
-            return mapper.Map<Team, TeamDTO>(_teamRepo.Find(id));
+            return Mapper.Map<Team, TeamDTO>(_teamRepo.Find(id));
         }
 
         public List<TeamDTO> GetTeams()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Team, TeamDTO>()).CreateMapper();
-            return mapper.Map<List<Team>, List<TeamDTO>>(_teamRepo.Get());
+            return Mapper.Map<List<Team>, List<TeamDTO>>(_teamRepo.Get());
         }
 
         public List<TeamDTO> GetTeams( int jtStartIndex, int jtPageSize, string jtSorting)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Team, TeamDTO>()).CreateMapper();
-            return mapper.Map<List<Team>, List<TeamDTO>>(_teamRepo.Paging((x => x.Name), jtSorting, jtStartIndex-1, jtPageSize));
+            return Mapper.Map<List<Team>, List<TeamDTO>>(_teamRepo.Paging((x => x.Name), jtSorting, jtStartIndex-1, jtPageSize));
         }
 
         public int GetTeamCount()
@@ -78,6 +75,7 @@ namespace RideBikeProjectBLL.Services
 
         public void UpdateTeam(TeamDTO teamDTO)
         {
+            //change this
             Team team = _teamRepo.Find(teamDTO.Id);
             team.Description = teamDTO.Description;
             team.ImageId = teamDTO.ImageId;
@@ -92,7 +90,7 @@ namespace RideBikeProjectBLL.Services
             Team team = _teamRepo.Find(id);
             User chief = _userRepo.Find(team.ChiefId);
             chief.TeamId = null;
-            chief.RoleId = 2; //user-role
+            chief.RoleId = 2;
             _userRepo.Update(chief);
             _teamRepo.Remove(id);
         }

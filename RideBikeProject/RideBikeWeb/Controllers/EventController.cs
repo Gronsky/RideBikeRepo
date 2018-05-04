@@ -13,10 +13,11 @@ using System.Text;
 
 namespace RideBikeWeb.Controllers
 {
+    [Authorize]
     public class EventController : Controller
     {
         IEventService _evntService;
-        public EventController(ITeamService teamServ, IEventService evntServ, IUserService userServ)
+        public EventController(IEventService evntServ)
         {
             _evntService = evntServ;
         }
@@ -37,6 +38,7 @@ namespace RideBikeWeb.Controllers
             var EventCount = evnts.Count();
             return Json(new { Result = "OK", Records = evnts, TotalRecordCount = EventCount });
         }
+
 
         [HttpPost]
         public JsonResult CreateEvent([Bind(Exclude = "EventId")]EventViewModels evnt)
@@ -95,10 +97,6 @@ namespace RideBikeWeb.Controllers
             _evntService.DeleteEvent(evntDTO.Id);
             return Json(new { Result = "OK" }, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
 
         [HttpPost]//Gets the todo Lists.    
         public JsonResult EventsOfMyTeam(long teamId)

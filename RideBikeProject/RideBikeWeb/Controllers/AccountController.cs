@@ -85,7 +85,7 @@ namespace RideBikeWeb.Controllers
 
             var userMapper = new MapperConfiguration(cfg => cfg.CreateMap<LoginViewModel, UserDTO>()).CreateMapper();
             var userDto = userMapper.Map<LoginViewModel, UserDTO>(model);
-            //TODO implement login
+            //implement login
             var mysticDto = _userService.Login(userDto);
 
             if (_userService.Login(userDto) == null)
@@ -97,62 +97,46 @@ namespace RideBikeWeb.Controllers
 
             AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);
             return RedirectToLocal(returnUrl);
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            //switch (result)
-            //{
-            //    case SignInStatus.Success:
-            //        return RedirectToLocal(returnUrl);
-            //    case SignInStatus.LockedOut:
-            //        return View("Lockout");
-            //    case SignInStatus.RequiresVerification:
-            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-            //    case SignInStatus.Failure:
-            //    default:
-            //        ModelState.AddModelError("", "Invalid login attempt.");
-            //        return View(model);
-            //}
         }
 
         //
-        // GET: /Account/VerifyCode
-        [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
-        {
-            // Require that the user has already logged in via username/password or external login
-            if (!await SignInManager.HasBeenVerifiedAsync())
-            {
-                return View("Error");
-            }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        }
+        //// GET: /Account/VerifyCode
+        //[AllowAnonymous]
+        //public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
+        //{
+        //    // Require that the user has already logged in via username/password or external login
+        //    if (!await SignInManager.HasBeenVerifiedAsync())
+        //    {
+        //        return View("Error");
+        //    }
+        //    return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+        //}
 
-        //
-        // POST: /Account/VerifyCode
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+        ////
+        //// POST: /Account/VerifyCode
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
 
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid code.");
-                    return View(model);
-            }
-        }
+        //    var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
+        //    switch (result)
+        //    {
+        //        case SignInStatus.Success:
+        //            return RedirectToLocal(model.ReturnUrl);
+        //        case SignInStatus.LockedOut:
+        //            return View("Lockout");
+        //        case SignInStatus.Failure:
+        //        default:
+        //            ModelState.AddModelError("", "Invalid code.");
+        //            return View(model);
+        //    }
+        //}
 
         //
         // GET: /Account/Register
@@ -166,13 +150,12 @@ namespace RideBikeWeb.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            var userMapper = new MapperConfiguration(cfg => cfg.CreateMap<RegisterViewModel, UserDTO>()).CreateMapper();
+            var userMapper =  new MapperConfiguration(cfg => cfg.CreateMap<RegisterViewModel, UserDTO>()).CreateMapper();
             var userDto = userMapper.Map<RegisterViewModel, UserDTO>(model);
             _userService.CreateUser(userDto);
 
@@ -218,13 +201,6 @@ namespace RideBikeWeb.Controllers
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
-
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -364,34 +340,6 @@ namespace RideBikeWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Index", "Manage");
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-            //    // Get the information about the user from the external login provider
-            //    var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-            //    if (info == null)
-            //    {
-            //        return View("ExternalLoginFailure");
-            //    }
-            //    var user = new  { UserName = model.Email, Email = model.Email };
-            //    var result = await UserManager.CreateAsync(user);
-            //    if (result.Succeeded)
-            //    {
-            //        result = await UserManager.AddLoginAsync(user.Id, info.Login);
-            //        if (result.Succeeded)
-            //        {
-            //          //  await AuthenticationManager.SignIn(user, isPersistent: true, rememberBrowser: false);
-            //            return RedirectToLocal(returnUrl);
-            //        }
-            //    }
-            //    AddErrors(result);
-            //}
-
-            //ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
 

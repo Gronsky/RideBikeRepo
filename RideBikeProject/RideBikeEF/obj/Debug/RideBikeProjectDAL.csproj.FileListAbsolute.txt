@@ -26,4 +26,3 @@ C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProje
 C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\bin\Debug\Ninject.xml
 C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\obj\Debug\RideBikeProjectDAL.exe
 C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\obj\Debug\RideBikeProjectDAL.pdb
-C:\Users\anastasia.gronscaia\documents\visual studio 2017\Projects\RideBikeProject\RideBikeEF\obj\Debug\RideBikeProjectDAL.csprojResolveAssemblyReference.cache

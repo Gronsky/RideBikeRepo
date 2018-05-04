@@ -19,5 +19,7 @@ namespace RideBikeProjectBLL.Interfaces
         void DeleteUser(long userId);
 
         List<EventDTO> GetUserEvents(long userId);
+
+        void ChangeImage(string image, long userId);
     }
 }

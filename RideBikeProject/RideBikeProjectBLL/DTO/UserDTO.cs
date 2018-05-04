@@ -19,8 +19,10 @@ namespace RideBikeProjectBLL.DTO
         public Nullable<long> TeamId { get; set; }
         public long RoleId { get; set; }
 
-        public string Role { get; set; } = "User";
+        public string Team { get; set; }
+        public string Image { get; set; }
 
+        public string Role { get; set; } = "User";
         public string Name => $"{FirstName} {LastName}";
         public int Age => GetAge(BirthDate);
 

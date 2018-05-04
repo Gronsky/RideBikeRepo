@@ -11,8 +11,6 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RideBikeProject.Database", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideBike.Web", "RideBikeWeb\RideBike.Web.csproj", "{26361552-DA33-4FAA-AFE4-0EBF57CAD4B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RideBikeProject.WEB", "RideBikeProject\RideBikeProject.WEB.csproj", "{5B0E3D6C-03A1-4487-95C5-2F4B0ACF94E9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +35,6 @@ Global
 		{26361552-DA33-4FAA-AFE4-0EBF57CAD4B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26361552-DA33-4FAA-AFE4-0EBF57CAD4B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26361552-DA33-4FAA-AFE4-0EBF57CAD4B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B0E3D6C-03A1-4487-95C5-2F4B0ACF94E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B0E3D6C-03A1-4487-95C5-2F4B0ACF94E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B0E3D6C-03A1-4487-95C5-2F4B0ACF94E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B0E3D6C-03A1-4487-95C5-2F4B0ACF94E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

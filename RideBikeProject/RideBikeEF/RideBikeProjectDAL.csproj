@@ -156,7 +156,6 @@
     <Compile Include="Mapping\EventUserConfig.cs" />
     <Compile Include="Mapping\ImageConfig.cs" />
     <Compile Include="Mapping\ProducerConfig.cs" />
-    <Compile Include="Mapping\ProfileConfig.cs" />
     <Compile Include="Mapping\RoleConfig.cs" />
     <Compile Include="Mapping\TeamConfig.cs" />
     <Compile Include="Mapping\UserConfig.cs" />

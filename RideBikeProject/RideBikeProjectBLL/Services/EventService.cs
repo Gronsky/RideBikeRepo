@@ -67,14 +67,6 @@ namespace RideBikeProjectBLL.Services
 
         public void AddParticipant(EventDTO evntDTO, UserDTO userDTO)
         {
-            //EventUserDTO eventUserDTO = new EventUserDTO
-            //{
-            //    EventId = evntDTO.Id,
-            //    UserId = userDTO.Id,
-            //};
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EventUser, EventUserDTO>()).CreateMapper();
-            //_eventUserRepo.Create(mapper.Map<EventUserDTO, EventUser>(eventUserDTO));
-
             EventUser evntUser = new EventUser
             {
                 EventId = evntDTO.Id,
@@ -96,9 +88,6 @@ namespace RideBikeProjectBLL.Services
 
         public List<UserDTO> GetParticipants(long id)
         {
-            List<EventUser> evntUser = _eventUserRepo.Get(x => x.EventId == id);
-            var Ids = evntUser.Select(x => x.UserId);
-
             throw new NotImplementedException();
         }
 

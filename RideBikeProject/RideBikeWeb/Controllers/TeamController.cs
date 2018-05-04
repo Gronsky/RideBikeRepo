@@ -14,6 +14,7 @@ using System.Text;
 
 namespace RideBikeWeb.Controllers
 {
+    [Authorize]
     public class TeamController : Controller
     {
         ITeamService _teamService;
@@ -97,8 +98,5 @@ namespace RideBikeWeb.Controllers
             _teamService.DeleteTeam(teamDTO.Id);
             return Json(new { Result = "OK" }, JsonRequestBehavior.AllowGet);
         }
-
-
-
     }
 }

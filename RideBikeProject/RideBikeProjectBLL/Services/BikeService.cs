@@ -40,6 +40,7 @@ namespace RideBikeProjectBLL.Services
                 Model = bikeDTO.Model,
                 Description = bikeDTO.Description
             };
+
             _bikeRepo.Create(bike);
         }
 
