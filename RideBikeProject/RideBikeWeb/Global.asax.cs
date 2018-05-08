@@ -4,9 +4,8 @@ using System.Web.Routing;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
-using RideBikeWEB.Infrastructure;
-using RideBikeWeb.AutoMapperProfiles;
 using AutoMapper;
+using RideBike.Infrastructure;
 
 namespace RideBikeWeb
 {

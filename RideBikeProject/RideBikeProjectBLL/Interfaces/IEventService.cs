@@ -1,9 +1,5 @@
-﻿using System;
+﻿using RideBike.Infrastructure.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RideBikeProjectBLL.DTO;
 
 namespace RideBikeProjectBLL.Interfaces
 {
@@ -12,12 +8,14 @@ namespace RideBikeProjectBLL.Interfaces
         void CreateEvent(EventDTO eventDTO);
         EventDTO GetEvent(long id);
         List<EventDTO> GetEvents();
+        List<EventDTO> GetEvents(int jtStartIndex, int jtPageSize);
         List<EventDTO> GetEventsByTeam(long id);
         void UpdateEvent(EventDTO eventDTO);
         void DeleteEvent(long id);
 
+        List<EventTypeDTO> GetAllEventTypes();
+
         void AddParticipant(EventDTO evntDTO, UserDTO userDTO);
         void AddParticipant(EventDTO evntDTO, UserDTO userDTO, BikeDTO bikeDTO);
-        List<UserDTO> GetParticipants(long id);
     }
 }

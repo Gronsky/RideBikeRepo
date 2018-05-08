@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
-using RideBikeProjectBLL.DTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Web;
+using RideBike.Infrastructure.DTO;
 
 namespace RideBikeWeb.Helpers
 {

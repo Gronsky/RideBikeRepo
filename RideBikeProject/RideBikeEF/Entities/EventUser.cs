@@ -10,8 +10,7 @@
 namespace RideBikeProjectDAL.Entities
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class EventUser
     {
         public long Id { get; set; }

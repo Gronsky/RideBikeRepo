@@ -1,55 +1,13 @@
-﻿@model IEnumerable<RideBikeWeb.Models.EventViewModels>
-
-<br/>
-<div>
-    <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;hl=en&amp;bgcolor=%23ffffff&amp;src=glal2glkneisa5uk6ma42h5oi0%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=Europe%2FChisinau" style="border-width:0" width="1140" height="600" frameborder="0" scrolling="no">
-    </iframe>
-</div>
-
-
-
+﻿@using RideBike.Infrastructure.Models
+@model IEnumerable<EventViewModels>
 
 @{
     ViewBag.Title = "Events";
 }
 
-<h2>Events</h2>
+<br/>
+ <h2>Events</h2>
 
-<div id="EventsTable"></div> 
+<div id="EventsTable" class="jumbotron"></div> 
 
 
-@*<div>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(x => x.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(x => x.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(x => x.Description)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.ActionLink("Create New Team", "CreateTeam", new { userId = item.Id })
-                </td>
-            </tr>
-        }
-
-    </table>
-</div>*@

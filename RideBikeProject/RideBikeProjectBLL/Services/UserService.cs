@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using RideBikeProjectDAL.Entities;
 using RideBikeProjectDAL.Interfaces;
-using RideBikeProjectBLL.DTO;
 using RideBikeProjectBLL.Interfaces;
 using RideBikeProjectBLL.Infrastructure;
-using RideBikeProjectDAL.Repositories;
-using System.Security.Claims;
-using RideBikeProjectDAL.Identity;
-using Microsoft.AspNet.Identity;
+using RideBike.Infrastructure.DTO;
 
 namespace RideBikeProjectBLL.Services
 {
@@ -59,10 +52,14 @@ namespace RideBikeProjectBLL.Services
         {
             var dbUser = Mapper.Map<User, UserDTO>((_userRepo.Get(x => x.Email.Equals(userDto.Email))).FirstOrDefault());
 
+            if (dbUser == null)
+                return null;
+
             if (dbUser.Password.Equals(userDto.Password))
             {
                 return dbUser;
             }
+
             return null;
         }
 
@@ -97,10 +94,16 @@ namespace RideBikeProjectBLL.Services
             return Mapper.Map<List<User>, List<UserDTO>>(_userRepo.Get());
         }
 
-        public void UpdateUser(UserDTO userDTO)
+        public void UpdateUser(UserDTO userDto)
         {
-            User user = _userRepo.Find(userDTO.Id);
-            _userRepo.Update(user);
+            User user = _userRepo.Find(userDto.Id);
+            user.FirstName = userDto.FirstName;
+            user.LastName = userDto.LastName;
+            user.BirthDate = userDto.BirthDate;
+            user.Email = userDto.Email;
+            user.Password = userDto.Password;
+            
+              _userRepo.Update(user);
         }
 
         public void DeleteUser(long userId)

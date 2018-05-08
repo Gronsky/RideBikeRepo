@@ -1,0 +1,62 @@
+﻿@model RideBike.Infrastructure.Models.TeamViewModels
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>CreateTeam</h2>
+
+<div class="jumbotron" id="proffon">
+
+    <div id="profimg">
+        <img src=@Model.Image />
+
+        @using (Html.BeginForm("FileUpload", "Team", FormMethod.Post, new { enctype = "multipart/form-data", teamId = Model.Id }))
+        {
+            <label for="file">Upload Image:</label>
+            <input type="file" name="file" id="file" style="width: 100%;" />
+            <input type="text" name="г" hidden value=@Model.Id />
+            <input type="submit" value="Upload" class="submit" />
+        }
+    </div>
+
+    @Html.HiddenFor(x => x.ChiefId, new { @Value = Model.ChiefId})
+    <div>
+        @using (Html.BeginForm("CreateTeam", "Team", FormMethod.Post, new { model = Model }))
+        {
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <table class="table" id="proftable">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Name)
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(modelItem => Model.Name, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Location)
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(modelItem => Model.Location, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Description)
+                    </th>
+                    <td>
+                        @Html.TextAreaFor(x => Model.Description, new { @class = "form-control" })
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Update" class="submit" />
+        }
+    </div>
+
+
+
+</div>
+
+

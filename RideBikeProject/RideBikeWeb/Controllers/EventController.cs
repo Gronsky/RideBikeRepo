@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using RideBikeProjectBLL.DTO;
-using RideBikeProjectBLL.Infrastructure;
 using RideBikeProjectBLL.Interfaces;
-using RideBikeProjectBLL.Services;
-using RideBikeWeb.Models;
 using System.Text;
+using RideBike.Infrastructure.DTO;
+using RideBike.Infrastructure.Models;
+
+using Google.Apis.Auth.OAuth2.Mvc;
+using Google.Apis.Drive.v2;
+using Google.Apis.Services;
+using System.Threading;
+using System.Threading.Tasks;
+using RideBikeWeb.Infrastructure;
 
 namespace RideBikeWeb.Controllers
 {
@@ -20,7 +23,7 @@ namespace RideBikeWeb.Controllers
         public EventController(IEventService evntServ)
         {
             _evntService = evntServ;
-        }
+        }     
 
         public ActionResult Events()
         {
@@ -32,29 +35,26 @@ namespace RideBikeWeb.Controllers
         }
 
         [HttpPost]//Gets the todo Lists.    
-        public JsonResult GetEvents(string teamName = "", int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = "ASC")
+        public JsonResult GetEvents(int jtStartIndex = 0, int jtPageSize = 10)
         {
-            List<EventDTO> evnts = _evntService.GetEvents();// jtStartIndex, jtPageSize, jtSorting);
+            List<EventDTO> evnts = _evntService.GetEvents(jtStartIndex, jtPageSize );
             var EventCount = evnts.Count();
             return Json(new { Result = "OK", Records = evnts, TotalRecordCount = EventCount });
         }
 
-
         [HttpPost]
         public JsonResult CreateEvent([Bind(Exclude = "EventId")]EventViewModels evnt)
         {
-            //validating Model state   
             if (ModelState.IsValid)
             {
+                evnt.TypeId = 1;
                 var evntMapper = new MapperConfiguration(cfg => cfg.CreateMap<EventViewModels, EventDTO>()).CreateMapper();
                 var evntDTO = evntMapper.Map<EventViewModels, EventDTO>(evnt);
-                _evntService.CreateEvent(evntDTO);
-                // Sending Response to Ajax request  
+                _evntService.CreateEvent(evntDTO); 
                 return Json(new { Result = "OK", Record = evnt });
             }
             else
             {
-                // Generating error response  
                 StringBuilder msg = new StringBuilder();
                 var errormessage = (from item in ModelState
                                     where item.Value.Errors.Any()
@@ -73,9 +73,8 @@ namespace RideBikeWeb.Controllers
         public JsonResult EditEvent(EventViewModels evnt)
         {
             if (ModelState.IsValid)
-            {
-                var evntMapper = new MapperConfiguration(cfg => cfg.CreateMap<EventViewModels, EventDTO>()).CreateMapper();
-                var evntDTO = evntMapper.Map<EventViewModels, EventDTO>(evnt);
+            {   
+                var evntDTO = Mapper.Map<EventViewModels, EventDTO>(evnt);
                 _evntService.UpdateEvent(evntDTO);
                 return Json(new { Result = "OK" }, JsonRequestBehavior.AllowGet);
             }

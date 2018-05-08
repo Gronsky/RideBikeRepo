@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
     $('#TeamsTable').jtable({
         title: 'Teams',
-        paging: false,
-        pageSize: 5,
+        paging: true,
+        pageSize: 10,
         sorting: false,
         actions: {
             listAction: '/Team/GetTeams',
@@ -45,8 +45,8 @@
     $('#EventsTable').jtable({
         title: 'Teams',
         paging: true,
-        pageSize: 5,
-        sorting: true,
+        pageSize: 10,
+        sorting: false,
         actions: {
             listAction: '/Event/GetEvents',
             createAction: '/Event/CreateEvent',
@@ -54,7 +54,7 @@
             deleteAction: '/Event/DeleteEvent'
         },
         fields: {
-            ID: {
+            Id: {
                 key: true,
                 create: false,
                 edit: false,
@@ -64,6 +64,12 @@
                 title: 'Name',
                 width: '15%'
             },
+            DateTime: {
+                title: 'Date',
+                type: 'date',
+                displayFormat: 'yy-mm-dd',
+                width: '15%'
+            },
             Location: {
                 title: 'Location',
                 width: '30%'
@@ -71,6 +77,12 @@
             Description: {
                 title: 'Description',
                 width: '30%',
+                list: false
+            },
+            TypeId: {
+                title: 'Type',
+                edit: false,
+                list: false
             },
             CreatedBy: {
                 title: 'CreatedBy',

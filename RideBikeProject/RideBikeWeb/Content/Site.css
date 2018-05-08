@@ -2,6 +2,7 @@
     background-image: url("Img/background/body_1.jpg");
     padding-top: 50px;
     padding-bottom: 20px;
+    min-height: 900px;
 }
 
 .body-content {
@@ -54,6 +55,35 @@ textarea {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 25px !important;
+}
+
+#profimg img {
+    height: 320px;
+    width: auto;
+    max-width: 510px;
+}
+
+#profimg {
+    float: right;
+}
+
+#proftable {
+    width:50% !important;
+}
+
+#proffon {
+    min-height: 600px;
+}
+
+#google-calendar {
+    border-width: 0;
+    width: 1140px;
+    height: 600px;
+}
+
+div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+    padding: 10px;
+    height: 50px;
 }

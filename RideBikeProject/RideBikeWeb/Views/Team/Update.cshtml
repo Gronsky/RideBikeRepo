@@ -1,0 +1,63 @@
+﻿@model RideBike.Infrastructure.Models.TeamViewModels
+
+@{
+    ViewBag.Title = "Update";
+}
+<br />
+<h2>Update</h2>
+
+<div class="jumbotron" id="proffon">
+
+    <div id="profimg">
+        <img src=@Model.Image />
+
+        @using (Html.BeginForm("FileUpload", "Team", FormMethod.Post, new { enctype = "multipart/form-data", teamId = Model.Id }))
+        {
+            <label for="file">Upload Image:</label>
+            <input type="file" name="file" id="file" style="width: 100%;" />
+            <input type="text" name="teamId" hidden value=@Model.Id />
+            <input type="submit" value="Upload" class="submit" />
+        }
+    </div>
+
+    <div>
+        @using (Html.BeginForm("Update", "Team", FormMethod.Post, new { model = Model }))
+        {
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <table class="table" id="proftable">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Name)
+                    </th>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.Name, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Location)
+                    </th>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.Location, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Description)
+                    </th>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.Description, new { @class = "form-control" })
+                    </td>
+                </tr>
+            </table>
+            @Html.HiddenFor(modelItem => Model.ImageId)
+            @Html.HiddenFor(modelItem => Model.ChiefId)
+            @Html.HiddenFor(modelItem => Model.Image)
+            @Html.HiddenFor(modelItem => Model.Chief)
+            <input type="submit" value="Update" class="submit" />
+        }
+    </div>
+
+
+
+</div>

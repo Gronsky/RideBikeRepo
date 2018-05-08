@@ -4,13 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using RideBikeProjectBLL.DTO;
-using RideBikeProjectBLL.Infrastructure;
 using RideBikeProjectBLL.Interfaces;
-using RideBikeProjectBLL.Services;
-using RideBikeWeb.Models;
-using System.Web.Services;
 using System.Text;
+using RideBike.Infrastructure.Models;
+using RideBike.Infrastructure.DTO;
+using System.IO;
 
 namespace RideBikeWeb.Controllers
 {
@@ -23,6 +21,47 @@ namespace RideBikeWeb.Controllers
             _teamService = teamServ;
         }
 
+        // GET: Profile
+        public ActionResult Team(long Id)
+        {
+            var teamDto = _teamService.GetTeam(Id);
+            var model = Mapper.Map<TeamDTO, TeamViewModels>(teamDto);
+            return View(model);
+        }
+
+        public ActionResult Update(long Id)
+        {
+            var teamDto = _teamService.GetTeam(Id);
+            var model = Mapper.Map<TeamDTO, TeamViewModels>(teamDto);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Update(TeamViewModels model)
+        {
+            var teamDto = Mapper.Map<TeamViewModels, TeamDTO>(model);
+            _teamService.UpdateTeam(teamDto);
+            return RedirectToAction("Team", "Team", new { Id = model.Id });
+        }
+
+        [HttpPost]
+        public ActionResult FileUpload(HttpPostedFileBase file, long teamId)
+        {
+            if (file != null)
+            {
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = Path.Combine(Server.MapPath("~/Content/Img/teams"), pic);
+                file.SaveAs(path);
+
+                // save the image path to the database [Image].[Source]
+                string imagePath = String.Concat("../../Content/Img/teams/", pic);
+                _teamService.ChangeImage(imagePath, teamId);
+            }
+
+            return RedirectToAction("Team", "Team", new { Id = teamId });
+        }
+
+        //-----------------------------------------------------------------------------------------------
         public ActionResult Teams()
         {
             ViewBag.Message = "Teams";
@@ -33,29 +72,39 @@ namespace RideBikeWeb.Controllers
         }
 
         [HttpPost]//Gets the todo Lists.    
-        public JsonResult GetTeams(string teamName = "", int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = "ASC")
+        public JsonResult GetTeams( int jtStartIndex = 0, int jtPageSize = 10 )
         {
+            List<TeamDTO> teams = _teamService.GetTeams( jtStartIndex, jtPageSize );
             var TeamCount = _teamService.GetTeamCount();
-            List<TeamDTO> teams = _teamService.GetTeams();// jtStartIndex, jtPageSize, jtSorting);
             return Json(new { Result = "OK", Records = teams, TotalRecordCount = TeamCount });
         }
 
+        public ActionResult Create(long Id)
+        {
+            var model = new TeamViewModels() { ChiefId = Id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Create(TeamViewModels model)
+        {
+            var teamDTO = Mapper.Map<TeamViewModels, TeamDTO>(model);
+            _teamService.CreateTeam(teamDTO);
+           // var teamDto = _teamService.GetTeam(x => x.ChiefId == model.ChiefId);
+            return RedirectToAction("Team", "Team", new { Id = 1});
+        }
 
         [HttpPost]
         public JsonResult CreateTeam([Bind(Exclude = "TeamId")]TeamViewModels team)
         {
-            //validating Model state   
             if (ModelState.IsValid)
             {
-                var teamMapper = new MapperConfiguration(cfg => cfg.CreateMap<TeamViewModels, TeamDTO>()).CreateMapper();
-                var teamDTO = teamMapper.Map<TeamViewModels, TeamDTO>(team);
-                _teamService.CreateTeam(teamDTO);
-                // Sending Response to Ajax request  
+                var teamDTO = Mapper.Map<TeamViewModels, TeamDTO>(team);
+                _teamService.CreateTeam(teamDTO); 
                 return Json(new { Result = "OK", Record = team });
             }
             else
             {
-                // Generating error response  
                 StringBuilder msg = new StringBuilder();
                 var errormessage = (from item in ModelState
                                     where item.Value.Errors.Any()

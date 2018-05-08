@@ -1,0 +1,71 @@
+﻿@model RideBike.Infrastructure.Models.EventViewModels
+@using RideBike.Infrastructure.DTO;
+
+@{
+    ViewBag.Title = "AddEvent";
+}
+<br />
+<h2>Add an event:</h2>
+@{
+    List<string> sd = ViewBag.List;
+}
+
+<div class="jumbotron" id="proffon">
+
+    <div>
+        @using (Html.BeginForm("AddEvent", "Calendar", FormMethod.Post, new { model = Model }))
+        {
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <table class="table" id="proftable">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Name)
+                    </th>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.Name, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Type)
+                    </th>
+                    <td>
+                       @Html.DropDownListFor(x => Model.Type, new SelectList(sd.Select(x => new { Value = x, Text = x }), "Value", "Text"), new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.DateTime)
+                    </th>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.DateTime, new { @class = "form-control", @id = "datepicker" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Location)
+                    </th>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.Location, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(x => x.Description)
+                    </th>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.Description, new { @class = "form-control" })
+                    </td>
+                </tr>
+            </table>
+            @Html.HiddenFor(modelItem => Model.CreatedBy)
+
+            <input type="submit" value="Create" class="submit" />
+            
+        }
+    </div>
+
+
+
+</div>
+

@@ -1,9 +1,5 @@
-﻿using System;
+﻿using RideBike.Infrastructure.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RideBikeProjectBLL.DTO;
 
 namespace RideBikeProjectBLL.Interfaces
 {
@@ -13,7 +9,6 @@ namespace RideBikeProjectBLL.Interfaces
         BikeDTO GetBike(long id);
         List<BikeDTO> GetBikes();
         List<BikeDTO> GetBikesByUser(long id);
-        //List<BikeDTO> GetBikesByTeam(long id);
         void UpdateBike(BikeDTO bikeDTO);
         void DeleteBike(long id);
     }

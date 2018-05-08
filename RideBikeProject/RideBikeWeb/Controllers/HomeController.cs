@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
-using RideBikeProjectBLL.DTO;
-using RideBikeProjectBLL.Infrastructure;
-using RideBikeProjectBLL.Interfaces;
-using RideBikeProjectBLL.Services;
-using RideBikeWeb.Models;
+﻿using System.Web.Mvc;
 
 namespace RideBikeWeb.Controllers
 {

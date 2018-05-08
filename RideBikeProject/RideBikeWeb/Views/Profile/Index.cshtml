@@ -1,52 +1,85 @@
-﻿@model RideBikeWeb.Models.UserViewModel
+﻿@using Microsoft.AspNet.Identity;
+@using RideBike.Infrastructure.Models
+     
+@model UserViewModel
 
 @{
     ViewBag.Title = "User";
 }
+<br/>
+<h2>@Model.Name</h2>
 
-<h2>Profile</h2>
+<div class="jumbotron" id="proffon">
 
-<div class="jumbotron">
+    <div id="profimg">
+        <img src=@Model.Image  />  
+    </div>
 
-        <div class="logo">
-            <img src=@Model.Image />
-        </div>
+    <div>
+        <table class="table" id="proftable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.FirstName)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.LastName)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.LastName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.Email)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Email)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.Age)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Age)
+                </td>
+            </tr>
+        @if (Model.Team != null)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.Team)
+                </th>
+                <td>
+                    <a href="@Url.Action("Team", "Team", new { Id = Model.TeamId })">@Html.DisplayFor(modelItem => Model.Team)</a>
+                </td>
 
+            </tr>
+        }
+        </table>
+    </div>
 
-    @using (Html.BeginForm("FileUpload", "Profile", FormMethod.Post, new { enctype = "multipart/form-data", userId = Model.Id }))
+    @if (User.Identity.GetUserId() == Model.Id.ToString())
     {
-        <label for="file">Upload Image:</label>
-        <input type="file" name="file" id="file" style="width: 100%;" />
-        <input type="text" name="userId" hidden value=@Model.Id />
-        <input type="submit" value="Upload" class="submit" />
+        <div id="profmenu">
+            <p>
+                <input type="button" value="Update Profile" onclick="location.href='@Url.Action("Update", "Profile", new { Id = Model.Id })'" />
+            </p>
+
+            @if (Model.Team == null)
+            {
+                <p>
+                    <input type="button" value="Create Team" onclick="location.href='@Url.Action("Create", "Team", new { Id = Model.Id })'" />
+                </p>
+            }
+        </div>
     }
-
-
-            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-                @Html.DisplayFor(m => m.FirstName, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.LastName, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Age, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.Age, new { @class = "form-control", @id = "datepicker" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Team, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.Team, new { @class = "form-control", @id = "datepicker" })
-            </div>
-        </div>
-
-
-
-
+    
 
 </div>
 

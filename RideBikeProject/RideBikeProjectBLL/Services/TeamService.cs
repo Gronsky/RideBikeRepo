@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
-using RideBikeProjectDAL;
 using RideBikeProjectDAL.Entities;
 using RideBikeProjectDAL.Interfaces;
-using RideBikeProjectBLL.DTO;
 using RideBikeProjectBLL.Interfaces;
 using RideBikeProjectBLL.Infrastructure;
+using RideBike.Infrastructure.DTO;
 
 namespace RideBikeProjectBLL.Services
 {
@@ -18,12 +14,14 @@ namespace RideBikeProjectBLL.Services
         IRepository<Team> _teamRepo;
         IRepository<User> _userRepo;
         IRepository<Role> _roleRepo;
+        IRepository<Image> _imgRepo;
 
-        public TeamService(IRepository<Team> teamRepo, IRepository<User> userRepo, IRepository<Role> roleRepo)
+        public TeamService(IRepository<Team> teamRepo, IRepository<User> userRepo, IRepository<Role> roleRepo, IRepository<Image> imgRepo)
         {
             _teamRepo = teamRepo;
             _userRepo = userRepo;
             _roleRepo = roleRepo;
+            _imgRepo = imgRepo;
         }
         public void CreateTeam(TeamDTO teamDTO)
         {
@@ -46,16 +44,34 @@ namespace RideBikeProjectBLL.Services
                 Description = teamDTO.Description,
                 ChiefId = teamDTO.ChiefId
             };
-            chief.RoleId = 3;  //chief-role
+            // Set chief-role
+            chief.RoleId = 3;  
             
             _teamRepo.Create(team);
             chief.TeamId = team.Id;
             _userRepo.Update(chief);
         }
 
-        public TeamDTO GetTeam(long id)
+        public TeamDTO GetTeam(long teamId)
         {
-            return Mapper.Map<Team, TeamDTO>(_teamRepo.Find(id));
+            var team = _teamRepo.Find(teamId);
+            if (team == null)
+                throw new ValidationException("Team doesn't find", "");
+
+            var teamDto = Mapper.Map<Team, TeamDTO>(team);
+
+            // Get image src
+            if (team.ImageId != null)
+            {
+                long id = team.ImageId.Value;
+                Image img = _imgRepo.Find(id);
+                teamDto.Image = img.Source;
+            }
+
+            // Get chief name
+            User chief = _userRepo.Find(team.ChiefId);
+            teamDto.Chief = string.Concat(chief.FirstName, " ", chief.LastName);
+            return teamDto;
         }
 
         public List<TeamDTO> GetTeams()
@@ -63,9 +79,9 @@ namespace RideBikeProjectBLL.Services
             return Mapper.Map<List<Team>, List<TeamDTO>>(_teamRepo.Get());
         }
 
-        public List<TeamDTO> GetTeams( int jtStartIndex, int jtPageSize, string jtSorting)
+        public List<TeamDTO> GetTeams( int jtStartIndex, int jtPageSize )
         {
-            return Mapper.Map<List<Team>, List<TeamDTO>>(_teamRepo.Paging((x => x.Name), jtSorting, jtStartIndex-1, jtPageSize));
+            return Mapper.Map<List<Team>, List<TeamDTO>>(_teamRepo.Paging((x => x.Name), jtStartIndex, jtPageSize));
         }
 
         public int GetTeamCount()
@@ -75,7 +91,6 @@ namespace RideBikeProjectBLL.Services
 
         public void UpdateTeam(TeamDTO teamDTO)
         {
-            //change this
             Team team = _teamRepo.Find(teamDTO.Id);
             team.Description = teamDTO.Description;
             team.ImageId = teamDTO.ImageId;
@@ -93,6 +108,17 @@ namespace RideBikeProjectBLL.Services
             chief.RoleId = 2;
             _userRepo.Update(chief);
             _teamRepo.Remove(id);
+        }
+
+        public void ChangeImage(string image, long teamId)
+        {
+            Image img = new Image { Source = image };
+            _imgRepo.Create(img);
+            Image getImg = _imgRepo.Get(x => x.Source == image).FirstOrDefault();
+
+            Team team = _teamRepo.Find(teamId);
+            team.ImageId = getImg.Id;
+            _teamRepo.Update(team);
         }
     }
 }

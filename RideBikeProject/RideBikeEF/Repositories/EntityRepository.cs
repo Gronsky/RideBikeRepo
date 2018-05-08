@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
-using System.Linq.Expressions;
 using RideBikeProjectDAL.Interfaces;
 
 namespace RideBikeProjectDAL.Repositories
@@ -34,12 +33,14 @@ namespace RideBikeProjectDAL.Repositories
             return _dbSet.Where(predicate).ToList();
         }
 
-        public List<TEntity> Paging(Func<TEntity, string> predicate, string order, int skip, int take)
+        public List<TEntity> Paging(Func<TEntity, string> predicate, int skip, int take)
         {
-            if(order.ToUpper().Equals("DESC"))
-                return _dbSet.OrderByDescending(predicate).Skip(skip).Take(take).ToList();
-            else
-                return _dbSet.OrderBy(predicate).Skip(skip).Take(take).ToList();
+            return _dbSet.OrderBy(predicate).Skip(skip).Take(take).ToList();
+        }
+
+        public List<TEntity> Paging(Func<TEntity, long> predicate, int skip, int take)
+        {
+            return _dbSet.OrderByDescending(predicate).Skip(skip).Take(take).ToList();
         }
 
         public int Count()

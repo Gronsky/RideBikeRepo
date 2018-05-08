@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
-using RideBikeProjectDAL;
 using RideBikeProjectDAL.Entities;
 using RideBikeProjectDAL.Interfaces;
-using RideBikeProjectBLL.DTO;
 using RideBikeProjectBLL.Interfaces;
 using RideBikeProjectBLL.Infrastructure;
+using RideBike.Infrastructure.DTO;
 
 namespace RideBikeProjectBLL.Services
 {
@@ -18,12 +13,14 @@ namespace RideBikeProjectBLL.Services
         IRepository<Team> _teamRepo;
         IRepository<Event> _eventRepo;
         IRepository<EventUser> _eventUserRepo;
+        IRepository<EventType> _evntTypeRepo;
 
-        public EventService(IRepository<Team> teamRepo, IRepository<Event> eventRepo, IRepository<EventUser> eventUserRepo)
+        public EventService(IRepository<Team> teamRepo, IRepository<Event> eventRepo, IRepository<EventUser> eventUserRepo, IRepository<EventType> evntTypeRepo)
         {
             _teamRepo = teamRepo;
             _eventRepo = eventRepo;
             _eventUserRepo = eventUserRepo;
+            _evntTypeRepo = evntTypeRepo;
         }
 
         public void CreateEvent(EventDTO eventDTO)
@@ -32,37 +29,47 @@ namespace RideBikeProjectBLL.Services
             if (team == null)
                 throw new ValidationException("Team doesn't exist", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EventDTO, Event>()).CreateMapper();
-            _eventRepo.Create(mapper.Map<EventDTO, Event>(eventDTO));
+            _eventRepo.Create(Mapper.Map<EventDTO, Event>(eventDTO));
         }
 
         public EventDTO GetEvent(long id)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Event, EventDTO>()).CreateMapper();
-            return mapper.Map<Event, EventDTO>(_eventRepo.Find(id));
+            return Mapper.Map<Event, EventDTO>(_eventRepo.Find(id));
         }
 
         public List<EventDTO> GetEvents()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Event, EventDTO>()).CreateMapper();
-            return mapper.Map<List<Event>, List<EventDTO>>(_eventRepo.Get());
+            return Mapper.Map<List<Event>, List<EventDTO>>(_eventRepo.Get());
+        }
+
+        public List<EventDTO> GetEvents(int jtStartIndex, int jtPageSize)
+        {
+            return Mapper.Map<List<Event>, List<EventDTO>>(_eventRepo.Paging((x => x.Id), jtStartIndex, jtPageSize));
         }
 
         public List<EventDTO> GetEventsByTeam(long id)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Event, EventDTO>()).CreateMapper();
-            return mapper.Map<List<Event>, List<EventDTO>>(_eventRepo.Get(x => x.CreatedBy == id));
+            return Mapper.Map<List<Event>, List<EventDTO>>(_eventRepo.Get(x => x.CreatedBy == id));
         }
 
         public void UpdateEvent(EventDTO eventDTO)
         {
             Event evnt = _eventRepo.Find(eventDTO.Id);
+            evnt.Location = eventDTO.Location;
+            evnt.Name = eventDTO.Name;
+            evnt.Description = eventDTO.Description;
+            evnt.CreatedBy = eventDTO.CreatedBy;
             _eventRepo.Update(evnt);
         }
 
         public void DeleteEvent(long id)
         {
             _eventRepo.Remove(id);
+        }
+
+        public List<EventTypeDTO> GetAllEventTypes()
+        {
+            return Mapper.Map<List<EventType>, List<EventTypeDTO>>(_evntTypeRepo.Get());
         }
 
         public void AddParticipant(EventDTO evntDTO, UserDTO userDTO)
@@ -85,11 +92,5 @@ namespace RideBikeProjectBLL.Services
             };
             _eventUserRepo.Create(evntUser);
         }
-
-        public List<UserDTO> GetParticipants(long id)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

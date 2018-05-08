@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
-using RideBikeProjectDAL;
 using RideBikeProjectDAL.Entities;
 using RideBikeProjectDAL.Interfaces;
-using RideBikeProjectBLL.DTO;
 using RideBikeProjectBLL.Interfaces;
 using RideBikeProjectBLL.Infrastructure;
+using RideBike.Infrastructure.DTO;
 
 namespace RideBikeProjectBLL.Services
 {

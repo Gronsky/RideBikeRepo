@@ -1,0 +1,72 @@
+﻿@using RideBike.Infrastructure.Models
+     
+@model UserViewModel
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update Profile</h2>
+
+<div class="jumbotron" id="proffon">
+
+    <div id="profimg">
+        <img src=@Model.Image />
+
+        @using (Html.BeginForm("FileUpload", "Profile", FormMethod.Post, new { enctype = "multipart/form-data", userId = Model.Id }))
+        {
+            <label for="file">Upload Image:</label>
+            <input type="file" name="file" id="file" style="width: 100%;" />
+            <input type="text" name="userId" hidden value=@Model.Id />
+            <input type="submit" value="Upload" class="submit" />
+        }
+    </div>
+
+    <div>
+@using (Html.BeginForm("Update", "Profile", FormMethod.Post, new { model = Model }))
+{
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+        <table class="table" id="proftable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.FirstName)
+                </th>
+                <td>
+                    @Html.EditorFor(modelItem => Model.FirstName, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.LastName)
+                </th>
+                <td>
+                    @Html.EditorFor(modelItem => Model.LastName, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.Email)
+                </th>
+                <td>
+                    @Html.EditorFor(modelItem => Model.Email, new { @class = "form-control" })
+                </td>
+            </tr>       
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.BirthDate)
+                </th>
+                <td>
+                    @Html.EditorFor(modelItem => Model.BirthDate, new { @class = "form-control", @id = "datepicker" })
+                </td>
+            </tr>         
+        </table>
+        @Html.HiddenFor(x => Model.Password)
+
+        <input type="submit" value="Update" class="submit" />
+}
+    </div>
+
+
+
+</div>
+

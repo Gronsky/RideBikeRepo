@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<br/>
+<h2>Calendar of Events</h2>
+<br />
+<div>
+    <iframe id="google-calendar" src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;hl=en&amp;bgcolor=%23ffffff&amp;src=glal2glkneisa5uk6ma42h5oi0%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=Europe%2FChisinau" frameborder="0" scrolling="no"></iframe>
+
+    <p>
+        <input type="button" value="Add New Event" onclick="location.href='@Url.Action("AddEvent", "Calendar" )'" />
+    </p>
+</div>

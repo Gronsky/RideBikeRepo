@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNet.Identity;
+@model RideBike.Infrastructure.Models.TeamViewModels
+
+@{
+    ViewBag.Title = "Team";
+}
+<br/>
+<h2>@Model.Name</h2>
+
+<div class="jumbotron" id="proffon">
+
+    <div id="profimg">
+        <img src=@Model.Image />
+    </div>
+
+    <div>
+        <table class="table" id="proftable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.Name)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Name)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.Location)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Location)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.Description)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Description)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(x => x.Chief)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Chief)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+     
+
+    @if (User.Identity.GetUserId() == Model.ChiefId.ToString())
+    {
+        <div id="profmenu">
+            <p>
+                <input type="button" value="Update Team" onclick="location.href='@Url.Action("Update", "Team", new { Id = Model.Id })'" />
+            </p>
+            <p>
+                <input type="button" value="View Events" onclick="location.href='@Url.Action("Index", "Calendar", new { Id = Model.Id })'" />
+            </p>
+               
+        </div>
+    }
+
+
+</div>
+

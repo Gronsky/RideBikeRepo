@@ -11,10 +11,9 @@ namespace RideBikeProjectDAL.Entities
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using RideBikeProjectDAL.Entities;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class User : IdentityUser, IUser<long>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -44,6 +43,5 @@ namespace RideBikeProjectDAL.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Team> Teams { get; set; }
         public virtual Team Team { get; set; }
-        public string UserName { get; set; }
     }
 }

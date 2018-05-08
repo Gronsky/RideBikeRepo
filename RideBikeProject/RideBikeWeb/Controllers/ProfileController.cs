@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using RideBikeProjectBLL.DTO;
-using RideBikeProjectBLL.Infrastructure;
 using RideBikeProjectBLL.Interfaces;
-using RideBikeProjectBLL.Services;
-using RideBikeWeb.Models;
 using System.IO;
+using RideBike.Infrastructure.Models;
+using RideBike.Infrastructure.DTO;
 
 namespace RideBikeWeb.Controllers
 {
@@ -30,12 +26,20 @@ namespace RideBikeWeb.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult Change(long Id)
+        public ActionResult Update(long Id)
         {
             var userDto = _userService.GetUser(Id);
             var model = Mapper.Map<UserDTO, UserViewModel>(userDto);
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Update(UserViewModel model)
+        {
+            var userDto = Mapper.Map<UserViewModel, UserDTO>(model);
+            _userService.UpdateUser(userDto);
+
+            return RedirectToAction("Index", "Profile", new { Id = model.Id });
         }
 
         [HttpPost]
@@ -45,10 +49,9 @@ namespace RideBikeWeb.Controllers
             {
                 string pic = System.IO.Path.GetFileName(file.FileName);
                 string path = Path.Combine(Server.MapPath("~/Content/Img/users"), pic);
-
                 file.SaveAs(path);
 
-                // save the image path path to the database
+                // save the image path to the database [Image].[Source]
                 string imagePath = String.Concat("../../Content/Img/users/", pic);
                 _userService.ChangeImage(imagePath, userId);
             }
